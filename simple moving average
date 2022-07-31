@@ -1,0 +1,26 @@
+import numpy as np
+import pandas as pd
+
+arr = [1300, 1700, 1900, 2300, 2400]
+window_size = 2
+
+len_array = len(arr)+1
+prediction = [None] *len_array
+
+row = window_size
+last_n_rows = len_array - window_size
+
+i = 0
+while i < last_n_rows:
+    array_values = arr[i:i+window_size]
+    window_average = np.sum(array_values)/window_size
+    
+    prediction[row] = window_average
+    row+=1 
+    i+=1
+
+arr.append(None)
+d  ={'Actual': arr, f'Forecasted, w={window_size}': prediction}
+df_result = pd.DataFrame(d)
+display(df_result)
+print(f"Forecasted result: {prediction[-1]}")
